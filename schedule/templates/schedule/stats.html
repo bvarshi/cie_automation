@@ -1,0 +1,53 @@
+{% extends 'schedule/adminstart.html' %}
+{% block content %}
+
+<div class="col-md-4 col-sm-6">
+    <h3>invigilation duties</h3>
+      <canvas id="myChart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: [{% for r in res %} '{{r.fna1}}', {% endfor %}],
+        datasets: [{
+          label: 'rooms',
+          data: [{% for r in res %} {{r.total}}, {% endfor %}],
+          
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+      
+    });
+  </script>
+
+<br>
+<table class="mytable">
+    <thead>
+        <tr>
+            <th>FACULTY NAME</th>
+            <th>NUMBER OF INVIGILATIONS DONE</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for i in res %}
+        <tr>
+            <td data-column="FACULTY_NAME">{{ i.fna1}}</td>
+      <td data-column="NUMBER_OF_INVIGILATIONS_DONE">{{ i.total }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+{% endblock %}

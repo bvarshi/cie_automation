@@ -1,0 +1,32 @@
+{% extends 'schedule/adminstart.html' %}
+{% block content %}
+<form action="{% url 'seatpage' d.id %}" method="POST">
+    {% csrf_token %}
+    <div class="card-body text-center">
+        <h3>ENTERED ROOM NO IS:&nbsp;{{ d.roomno }}</h3>
+        <h3>ROOM CAPACITY:{{d.roomcapacity}}</h3>
+        <label class="inden">starting rollno: </label>
+              
+                    <select name="strollno" id="id">
+                      <option selected></option>
+      	            {% for i in x %}
+                    <option >{{ i.rollno}}</option>
+                    {% endfor %}
+                    </select>
+        <label class="inden">ending rollno: </label>
+              
+                    <select name="endrollno" id="id">
+                      <option selected></option>
+      	            {% for i in x %}
+                    <option >{{ i.rollno}}</option>
+                    {% endfor %}
+                    </select>
+                    <button class="btn btn-primary">ADD</button>
+    </div>
+</form>
+
+<!-- {% csrf_token %}
+<p>room no is {{d.roomno}}</p>
+<br>
+<p>room capacity is {{d.roomcapacity}}</p> -->
+{% endblock content %}

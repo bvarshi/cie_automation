@@ -1,0 +1,39 @@
+{% extends 'schedule/adminstart.html' %}
+{% block content %}
+<br><br><br>
+<div  class="row">
+  <div class="col-sm-2"></div>
+  
+  <div class="col-md-6" style="margin-right: 75px">
+   <div class="card" >
+      <div class="card-header text-center text-primary" >
+        <h4>Enter room id to assign seating arrangement</h4></div>
+
+		 <form action="{% url 'seat' %}" method="POST">
+		 	{% csrf_token %}
+		 	<div class="card-body text-center">
+		 		<label>ROOM&nbsp;NOS:&nbsp;</label>
+          <input type="number" name="id">
+          &nbsp;<br><br><button class="btn btn-dark">Continue-></button>
+      </form>
+  </div>
+</div>
+    </div>
+    <br><br><br>
+ 
+
+  
+  <div class="col-lg-3">    <!-----md-6,12-->
+  	<h4>AVAILABLE ROOM NOS</h4>
+   <div class="card">
+
+  	{% for i in data %}
+   
+       &nbsp;{{i.room_id}}&nbsp;----&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      {{i.ex_id}}&nbsp;&nbsp;
+      {{i.ex.exam_time}}<br>
+    
+    {% endfor %} 
+ </div>
+</div>
+{% endblock content %}

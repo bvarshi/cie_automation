@@ -1,0 +1,95 @@
+{% extends 'schedule/adminstart.html' %}
+{% block content %}
+<html lang="en">
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-">
+  
+    <div class="
+    d-flex
+    justify-content-between
+    flex-wrap flex-md-nowrap
+    align-items-center
+    pt-3
+    pb-2
+    mb-3
+    border-bottom
+  ">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-6">
+        <h3>rooms</h3>
+          <canvas id="myChart"></canvas>
+      </div>
+    <br>
+    <br>
+      <div class="col-md-4 col-sm-6">
+        <h3>rooms used</h3>
+          <canvas id="myChar"></canvas>
+      </div>
+
+    </div>
+  </div>
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: [{% for r in res %} '{{r.roomno}}', {% endfor %}],
+        datasets: [{
+          label: 'room capacity',
+          data: [{% for r in res %} {{r.roomcapacity}}, {% endfor %}],
+          
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+      
+    });
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const c = document.getElementById('myChar');
+
+  new Chart(c, {
+    type: 'bar',
+    data: {
+      labels: [{% for no in res %} '{{no.roomno}}', {% endfor %}],
+      datasets: [{
+        label: 'exams',
+        data: [{% for no in n %} {{no.total}}, {% endfor %}],
+        
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+    
+  });
+</script>
+
+</html>
+
+
+ 
+  
+  
+
+
+
+
+
+
+{% endblock %}
