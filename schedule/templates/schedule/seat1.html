@@ -1,0 +1,33 @@
+{% extends 'schedule/adminstart.html' %}
+{% block content %}
+<center>
+
+
+<table class="mytable">
+    <thead>
+      <tr>
+        <th>ROOM</th>
+        <th>STARTING ROLL NO</th>
+        <th>ENDING ROLL NO</th>
+      </tr>
+    </thead>
+  
+  
+   
+    <tbody>
+      {% for i in data %} 
+      <tr>
+        <td data-column="ROOM">{{i.room.roomno}}</td>
+        <td data-column="STARTING ROLL NO">{{i.first_roll}}</td>
+        <td data-column="ENDING ROLL NO">{{i.last_roll}}</td>
+        
+        
+        <!-- <td data-column="EDIT"><a href="{% url 'update' i.id %}"><i class="fa fa-edit" style="font-size: 25px;color:#0d7377" ></i></a></td> -->
+        
+        </tr>
+          {% endfor %}
+      </tbody>
+     
+       </table>
+    </center>
+       {% endblock content %}

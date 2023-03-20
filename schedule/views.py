@@ -7,7 +7,7 @@ from django.core.mail import send_mail,EmailMessage
 from django.db.models import Count,Q
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse 
-from schedule.models import faculty,room,exam,student,tt,adminlogin,conduct,constraints,feed,head
+from schedule.models import faculty,room,exam,student,tt,adminlogin,conduct,constraints,feed,head,seating
 from django.contrib.auth.forms import AuthenticationForm
 
 def home(request):
@@ -524,15 +524,7 @@ def stats(request):
 def seat(request):
 	r=conduct.objects.all()
 	if request.method=='POST':
-		# try:
-			# ro=request.POST['id']
-			# res=room.objects.filter(roomno=ro).all()
-			# stu=student.objects.all()
-			# print(len(res))
-			# return render(request,'schedule/seatpage.html',{'d':res[0],'x':stu})
-		# except Exception:
-		# 	messages.warning(request,'enter valid room no')
-		# 	return render(request,'schedule/seat.html',{'data':r})
+		
 
 		ro=request.POST['id']
 		ro=int(ro)
@@ -547,16 +539,27 @@ def seat(request):
 	return render(request,'schedule/seat.html',{'data':r})
 
 def seatpage(request,did):
-	d=room.objects.filter(roomno=did)
+	d=room.objects.get(roomno=did)
+	
+
 	if request.method=='POST':
 		stroll=request.POST['strollno']
 		endroll=request.POST['endrollno']
 		try:
-			if stroll-endroll<=d.roomcapacity:
-				seating.objects.create(room=did,first_roll=stroll,last_roll=endroll)
-				return render(request,'schedule/seat.html')
+			# if stroll-endroll<=d.roomcapacity:
+			# 	data=seating.objects.create(room=d,first_roll=stroll,last_roll=endroll)
+			# 	return render(request,'schedule/seat1.html')
+			data=seating.objects.create(room=d,first_roll=stroll,last_roll=endroll)
+			
+			r=r=conduct.objects.all()
+			return render(request,'schedule/seat.html', {'data':r})
 		except Exception:
 			messages.warning(request,'seat limit exceeded')
 			return render(request,'schedule/seatpage.html')
 
 	return render(request,'schedule/seatpage.html')
+
+def seat1(request):
+	data=seating.objects.all()
+
+	return render(request,'schedule/seat1.html',{'data':data})

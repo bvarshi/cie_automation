@@ -1,6 +1,6 @@
 {% extends 'schedule/adminstart.html' %}
 {% block content %}
-<form action="{% url 'seatpage' d.id %}" method="POST">
+<form action="{% url 'seatpage' d.pk %}" method="POST">
     {% csrf_token %}
     <div class="card-body text-center">
         <h3>ENTERED ROOM NO IS:&nbsp;{{ d.roomno }}</h3>

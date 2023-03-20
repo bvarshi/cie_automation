@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from schedule import views
-
+app_name = "schedule"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/',views.home,name='home'),
@@ -60,6 +60,7 @@ urlpatterns = [
      path('stats/',views.stats,name='stats'),
      path('seat/',views.seat,name='seat'),
      path('seatpage/<int:did>/',views.seatpage,name='seatpage'),
+     path('seat1/',views.seat1,name='seat1'),
     
 
      
